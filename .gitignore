@@ -1,3 +1,4 @@
 .idea
 faiss_index_test
 .env
+venv
