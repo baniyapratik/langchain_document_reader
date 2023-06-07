@@ -73,14 +73,15 @@ def ingest_pdf(pdf_url):
     docs = text_splitter.split_documents(documents)
 
     embeddings = OpenAIEmbeddings()
-    vector_store = FAISS.from_documents(docs, embeddings)
-    vector_store.save_local("faiss_index_test")
+    Pinecone.from_documents(docs, embeddings, index_name=INDEX_NAME)
+    # vector_store = FAISS.from_documents(docs, embeddings)
+    # vector_store.save_local("faiss_index_test")
     # delete file
     if os.path.exists(pdf_path):
         os.remove(pdf_path)
 
 
-def get_data(query):
+def get_data(query=None):
     if not query:
         query = "Summarize the document for me in one paragraph"
     embeddings = OpenAIEmbeddings()
@@ -106,9 +107,11 @@ def ingest_text(text_file_path):
 
 
 if __name__ == "__main__":
+    # use FIASS or pinecone
+
     # pdf reader
-    # ingest_pdf(pdf_url="https://arxiv.org/pdf/2305.07185.pdf")
-    # print(get_data())
+    ingest_pdf(pdf_url="https://arxiv.org/pdf/2301.07507v1.pdf")
+    print(get_data("Explain the approach on the paper?"))
 
     # ingest ts documentation reader
-    ingest_ts_docs()
+    #ingest_ts_docs()

@@ -6,3 +6,4 @@ tiktoken==0.4.0pip
 unstructured==0.7.1
 pdf2image
 tabulate
+pip install faiss-cpu
